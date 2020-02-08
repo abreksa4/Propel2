@@ -507,7 +507,7 @@ EOF;
         $o->setBar(456); // version 2
         $o->save();
         $o->toVersion(1);
-        $this->assertTrue($o->isModified());
+        $this->assertTrue($o->_isModified());
         $o->save();
         $this->assertEquals(3, $o->getVersion());
     }

@@ -4,7 +4,7 @@
      *
      * @return boolean True if the object has been modified.
      */
-    public function isModified()
+    public function _isModified()
     {
         return !!$this->modifiedColumns;
     }

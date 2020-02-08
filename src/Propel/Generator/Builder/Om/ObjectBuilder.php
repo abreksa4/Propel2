@@ -2220,7 +2220,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
     /**
      * Indicates whether the columns in this object are only set to default values.
      *
-     * This method can be used in conjunction with isModified() to indicate whether an object is both
+     * This method can be used in conjunction with _isModified() to indicate whether an object is both
      * modified _and_ has some values set which are non-default.
      *
      * @return boolean Whether the columns in this object are only been set with default values.
@@ -4636,7 +4636,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             foreach ($crossFKs->getCrossForeignKeys() as $crossFK) {
                 $script .= "
                     //\$combination[$combinationIdx] = {$crossFK->getForeignTable()->getPhpName()} ({$crossFK->getName()})
-                    if (!\$combination[$combinationIdx]->_isDeleted() && (\$combination[$combinationIdx]->_isNew() || \$combination[$combinationIdx]->isModified())) {
+                    if (!\$combination[$combinationIdx]->_isDeleted() && (\$combination[$combinationIdx]->_isNew() || \$combination[$combinationIdx]->_isModified())) {
                         \$combination[$combinationIdx]->save(\$con);
                     }
                 ";
@@ -4663,7 +4663,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 $script .= "
             if (\$this->coll{$relatedName}) {
                 foreach (\$this->coll{$relatedName} as \${$lowerSingleRelatedName}) {
-                    if (!\${$lowerSingleRelatedName}->_isDeleted() && (\${$lowerSingleRelatedName}->_isNew() || \${$lowerSingleRelatedName}->isModified())) {
+                    if (!\${$lowerSingleRelatedName}->_isDeleted() && (\${$lowerSingleRelatedName}->_isNew() || \${$lowerSingleRelatedName}->_isModified())) {
                         \${$lowerSingleRelatedName}->save(\$con);
                     }
                 }
@@ -5691,7 +5691,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 $aVarName = $this->getFKVarName($fk);
                 $script .= "
             if (\$this->$aVarName !== null) {
-                if (\$this->" . $aVarName . "->isModified() || \$this->" . $aVarName . "->_isNew()) {
+                if (\$this->" . $aVarName . "->_isModified() || \$this->" . $aVarName . "->_isNew()) {
                     \$affectedRows += \$this->" . $aVarName . "->save(\$con);
                 }
                 \$this->set".$this->getFKPhpNameAffix($fk, false)."(\$this->$aVarName);
@@ -5701,7 +5701,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
         } // if (count(foreign keys))
 
         $script .= "
-            if (\$this->_isNew() || \$this->isModified()) {
+            if (\$this->_isNew() || \$this->_isModified()) {
                 // persist changes
                 if (\$this->_isNew()) {
                     \$this->doInsert(\$con);
@@ -5753,7 +5753,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 $varName = $this->getPKRefFKVarName($refFK);
                 $script .= "
             if (\$this->$varName !== null) {
-                if (!\$this->{$varName}->_isDeleted() && (\$this->{$varName}->_isNew() || \$this->{$varName}->isModified())) {
+                if (!\$this->{$varName}->_isDeleted() && (\$this->{$varName}->_isNew() || \$this->{$varName}->_isModified())) {
                     \$affectedRows += \$this->{$varName}->save(\$con);
                 }
             }
@@ -5765,7 +5765,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 $script .= "
             if (\$this->$collName !== null) {
                 foreach (\$this->$collName as \$referrerFK) {
-                    if (!\$referrerFK->_isDeleted() && (\$referrerFK->_isNew() || \$referrerFK->isModified())) {
+                    if (!\$referrerFK->_isDeleted() && (\$referrerFK->_isNew() || \$referrerFK->_isModified())) {
                         \$affectedRows += \$referrerFK->save(\$con);
                     }
                 }

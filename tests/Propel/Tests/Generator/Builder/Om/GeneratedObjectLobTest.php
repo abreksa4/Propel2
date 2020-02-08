@@ -218,12 +218,12 @@ class GeneratedObjectLobTest extends BookstoreEmptyTestBase
         $m1->reload();
         $this->assertInternalType('resource', $m1->getCoverImage(), "Expected to get a resource back after setting reloading object.");
 
-        // 4) Test isModified() behavior
+        // 4) Test _isModified() behavior
         $fp = fopen("php://temp", "r+");
         fwrite($fp, file_get_contents($blob2_path));
 
         $m1->setCoverImage($fp);
-        $this->assertTrue($m1->isModified(), "Expected Media object to be modified, despite fact that stream is to same data");
+        $this->assertTrue($m1->_isModified(), "Expected Media object to be modified, despite fact that stream is to same data");
 
         // 5) Test external modification of the stream (and re-setting it into the object)
         $stream = $m1->getCoverImage();
@@ -231,7 +231,7 @@ class GeneratedObjectLobTest extends BookstoreEmptyTestBase
 
         $m1->setCoverImage($stream);
 
-        $this->assertTrue($m1->isModified(), "Expected Media object to be modified when stream contents changed.");
+        $this->assertTrue($m1->_isModified(), "Expected Media object to be modified when stream contents changed.");
         $this->assertNotEquals(file_get_contents($blob2_path), stream_get_contents($m1->getCoverImage()));
 
         $m1->save();

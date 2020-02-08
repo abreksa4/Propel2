@@ -61,12 +61,12 @@ class GeneratedObjectWithFixturesTest extends BookstoreEmptyTestBase
         $a->setFirstName(md5(time()));
 
         $this->assertNotEquals($origName, $a->getFirstName());
-        $this->assertTrue($a->isModified());
+        $this->assertTrue($a->_isModified());
 
         $a->reload();
 
         $this->assertEquals($origName, $a->getFirstName());
-        $this->assertFalse($a->isModified());
+        $this->assertFalse($a->_isModified());
 
     }
 
@@ -88,12 +88,12 @@ class GeneratedObjectWithFixturesTest extends BookstoreEmptyTestBase
         $b->setAuthor($a);
 
         $this->assertNotEquals($origAuthor, $b->getAuthor(), "Expected just-set object to be different from obj from DB");
-        $this->assertTrue($b->isModified());
+        $this->assertTrue($b->_isModified());
 
         $b->reload($deep=true);
 
         $this->assertEquals($origAuthor, $b->getAuthor(), "Expected object in DB to be restored");
-        $this->assertFalse($a->isModified());
+        $this->assertFalse($a->_isModified());
     }
 
     /**

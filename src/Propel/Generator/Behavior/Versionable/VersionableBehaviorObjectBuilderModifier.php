@@ -235,7 +235,7 @@ public function isVersioningNecessary(ConnectionInterface \$con = null)
         return true;
     }
 
-    if ({$queryClassName}::isVersioningEnabled() && (\$this->_isNew() || \$this->isModified()) || \$this->_isDeleted()) {
+    if ({$queryClassName}::isVersioningEnabled() && (\$this->_isNew() || \$this->_isModified()) || \$this->_isDeleted()) {
         return true;
     }";
         $plural = false;

@@ -101,12 +101,12 @@ class GeneratedObjectTest extends BookstoreTestBase
         $review = new Review();
         // note that this is different from how it's represented in schema, but should resolve to same unix timestamp
         $review->setReviewDate('2001-01-01');
-        $this->assertTrue($review->isModified(), "Expect Review to have been marked 'modified' after default date/time value set.");
+        $this->assertTrue($review->_isModified(), "Expect Review to have been marked 'modified' after default date/time value set.");
 
     }
 
     /**
-     * Test isModified() to be false after setting default value second time
+     * Test _isModified() to be false after setting default value second time
      */
     public function testDefaultValueSetTwice()
     {
@@ -120,7 +120,7 @@ class GeneratedObjectTest extends BookstoreTestBase
 
         $pub2 = PublisherQuery::create()->findPk($pubId);
         $pub2->setName('Penguin');
-        $this->assertFalse($pub2->isModified(), "Expect Publisher to be not modified after setting default value second time.");
+        $this->assertFalse($pub2->_isModified(), "Expect Publisher to be not modified after setting default value second time.");
     }
 
     public function testHasApplyDefaultValues()
@@ -137,15 +137,15 @@ class GeneratedObjectTest extends BookstoreTestBase
         $r = new Review();
         $this->assertEquals('2001-01-01', $r->getReviewDate('Y-m-d'));
 
-        $this->assertFalse($r->isModified(), "expected isModified() to be false");
+        $this->assertFalse($r->_isModified(), "expected _isModified() to be false");
 
         $acct = new BookstoreEmployeeAccount();
         $this->assertEquals(true, $acct->getEnabled());
-        $this->assertFalse($acct->isModified());
+        $this->assertFalse($acct->_isModified());
 
         $acct->setLogin("testuser");
         $acct->setPassword("testpass");
-        $this->assertTrue($acct->isModified());
+        $this->assertTrue($acct->_isModified());
     }
 
     /**
@@ -504,21 +504,21 @@ class GeneratedObjectTest extends BookstoreTestBase
     public function testIsModifiedIsFalseForNewObjects()
     {
         $a = new Author();
-        $this->assertFalse($a->isModified());
+        $this->assertFalse($a->_isModified());
     }
 
     public function testIsModifiedIsTrueForNewObjectsWithModifications()
     {
         $a = new Author();
         $a->setFirstName('Foo');
-        $this->assertTrue($a->isModified());
+        $this->assertTrue($a->_isModified());
     }
 
     public function testIsModifiedIsFalseForNewObjectsWithNullModifications()
     {
         $a = new Author();
         $a->setFirstName(null);
-        $this->assertFalse($a->isModified());
+        $this->assertFalse($a->_isModified());
     }
 
     public function testIsModifiedIsFalseForObjectsAfterResetModified()
@@ -526,7 +526,7 @@ class GeneratedObjectTest extends BookstoreTestBase
         $a = new Author();
         $a->setFirstName('Foo');
         $a->resetModified();
-        $this->assertFalse($a->isModified());
+        $this->assertFalse($a->_isModified());
     }
 
     public function testIsModifiedIsFalseForSavedObjects()
@@ -535,7 +535,7 @@ class GeneratedObjectTest extends BookstoreTestBase
         $a->setFirstName('Foo');
         $a->setLastName('Bar');
         $a->save();
-        $this->assertFalse($a->isModified());
+        $this->assertFalse($a->_isModified());
     }
 
     public function testIsModifiedIsTrueForSavedObjectsWithModifications()
@@ -546,21 +546,21 @@ class GeneratedObjectTest extends BookstoreTestBase
         $a->save();
         $a->setFirstName('Chuck');
         $a->setLastName('Norris');
-        $this->assertTrue($a->isModified());
+        $this->assertTrue($a->_isModified());
     }
 
     public function testIsModifiedIsFalseAfterSetToDefaultValueOnNewObject()
     {
         $p = new Publisher();
         $p->setName('Penguin'); // default column value
-        $this->assertFalse($p->isModified());
+        $this->assertFalse($p->_isModified());
     }
 
     public function testIsModifiedIsTrueAfterModifyingOnNonDefaultValueOnNewObject()
     {
         $p = new Publisher();
         $p->setName('Puffin Books');
-        $this->assertTrue($p->isModified());
+        $this->assertTrue($p->_isModified());
     }
 
     public function testIsModifiedIsTrueAfterSetToDefaultValueOnModifiedObject()
@@ -569,7 +569,7 @@ class GeneratedObjectTest extends BookstoreTestBase
         $p->setName('Puffin Books');
         $p->resetModified();
         $p->setName('Penguin'); // default column value
-        $this->assertTrue($p->isModified());
+        $this->assertTrue($p->_isModified());
     }
 
     public function testIsModifiedIsFalseAfterChangingColumnTypeButNotValue()
@@ -580,10 +580,10 @@ class GeneratedObjectTest extends BookstoreTestBase
         $a->resetModified();
 
         $a->setAge('25');
-        $this->assertFalse($a->isModified());
+        $this->assertFalse($a->_isModified());
 
         $a->setFirstName(1);
-        $this->assertFalse($a->isModified());
+        $this->assertFalse($a->_isModified());
     }
 
     public function testIsModifiedAndNullValues()
@@ -595,16 +595,16 @@ class GeneratedObjectTest extends BookstoreTestBase
         $a->save();
 
         $a->setFirstName(null);
-        $this->assertTrue($a->isModified(), "Expected Author to be modified after changing empty string column value to NULL.");
+        $this->assertTrue($a->_isModified(), "Expected Author to be modified after changing empty string column value to NULL.");
 
         $a->setAge(null);
-        $this->assertTrue($a->isModified(), "Expected Author to be modified after changing 0-value int column to NULL.");
+        $this->assertTrue($a->_isModified(), "Expected Author to be modified after changing 0-value int column to NULL.");
 
         $a->setFirstName('');
-        $this->assertTrue($a->isModified(), "Expected Author to be modified after changing NULL column value to empty string.");
+        $this->assertTrue($a->_isModified(), "Expected Author to be modified after changing NULL column value to empty string.");
 
         $a->setAge(0);
-        $this->assertTrue($a->isModified(), "Expected Author to be modified after changing NULL column to 0-value int.");
+        $this->assertTrue($a->_isModified(), "Expected Author to be modified after changing NULL column to 0-value int.");
     }
 
     /**
@@ -624,12 +624,12 @@ class GeneratedObjectTest extends BookstoreTestBase
         $acct->setPassword("bar");
         $acct->save();
 
-        $this->assertFalse($acct->isModified(), "Expected BookstoreEmployeeAccount NOT to be modified after save().");
+        $this->assertFalse($acct->_isModified(), "Expected BookstoreEmployeeAccount NOT to be modified after save().");
 
         $acct->setEnabled(true);
         $acct->setPassword($acct2->getPassword());
 
-        $this->assertTrue($acct->isModified(), "Expected BookstoreEmployeeAccount to be modified after setting default values.");
+        $this->assertTrue($acct->_isModified(), "Expected BookstoreEmployeeAccount to be modified after setting default values.");
 
         $this->assertTrue($acct->hasOnlyDefaultValues(), "Expected BookstoreEmployeeAccount to not have only default values.");
 

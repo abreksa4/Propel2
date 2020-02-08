@@ -68,7 +68,7 @@ EOF;
         $this->assertEquals('1602-02-02', $r->getBar1(null)->format('Y-m-d'));
 
         $r->setBar1('1702-02-02');
-        $this->assertTrue($r->isModified());
+        $this->assertTrue($r->_isModified());
         $this->assertEquals('1702-02-02', $r->getBar1(null)->format('Y-m-d'));
     }
 

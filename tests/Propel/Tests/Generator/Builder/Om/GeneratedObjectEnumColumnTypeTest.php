@@ -127,7 +127,7 @@ EOF;
         $e->setBar('baz');
         $e->resetModified();
         $e->setBar('baz');
-        $this->assertFalse($e->isModified());
+        $this->assertFalse($e->_isModified());
     }
 
     /**
@@ -142,6 +142,6 @@ EOF;
         \Map\ComplexColumnTypeEntity3TableMap::clearInstancePool();
         $e = \ComplexColumnTypeEntity3Query::create()->findPk($e->getPrimaryKey());
         $e->setBar('baz');
-        $this->assertFalse($e->isModified());
+        $this->assertFalse($e->_isModified());
     }
 }

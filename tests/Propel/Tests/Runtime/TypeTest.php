@@ -75,14 +75,14 @@ class TypeTest extends BookstoreTestBase
         $typeObjectEntity->save();
         
         $typeObjectEntity->setDetails($objectInstance);
-        $this->assertFalse($typeObjectEntity->isModified('details'));
+        $this->assertFalse($typeObjectEntity->_isModified('details'));
 
 
         $clone = clone $objectInstance;
         $clone->setPropPublic('changed');
 
         $typeObjectEntity->setDetails($clone);
-        $this->assertTrue($typeObjectEntity->isModified('details'));
+        $this->assertTrue($typeObjectEntity->_isModified('details'));
             
 
         TypeObjectTableMap::clearInstancePool();

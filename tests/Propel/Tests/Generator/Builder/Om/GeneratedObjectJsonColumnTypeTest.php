@@ -76,29 +76,29 @@ EOF;
       $e->setBar(array(
           'key' => 'value'
       ));
-      $this->assertTrue($e->isModified());
+      $this->assertTrue($e->_isModified());
       
       $e = new \PublicComplexColumnTypeJsonEntity();
       $e->setBar(array(
           'defaultKey' => 'defaultValue'
       ));
-      $this->assertFalse($e->isModified());
+      $this->assertFalse($e->_isModified());
       
       $e->setBar('{"defaultKey":"defaultValue"}');
-      $this->assertFalse($e->isModified());
+      $this->assertFalse($e->_isModified());
       
       $e->setBar('{"defaultKey"  :  "defaultValue"}');
-      $this->assertFalse($e->isModified());
+      $this->assertFalse($e->_isModified());
       
       $e->setBar((object)array(
           'defaultKey' => 'defaultValue'
       ));
-      $this->assertFalse($e->isModified());
+      $this->assertFalse($e->_isModified());
       
       $e->setBar((object)array(
           'key' => 'value'
       ));
-      $this->assertTrue($e->isModified());
+      $this->assertTrue($e->_isModified());
     }
 
     public function testValueIsPersisted()

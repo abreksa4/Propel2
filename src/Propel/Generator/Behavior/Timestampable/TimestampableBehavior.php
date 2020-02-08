@@ -87,7 +87,7 @@ class TimestampableBehavior extends Behavior
                 ? 'time()'
                 : '\\Propel\\Runtime\\Util\\PropelDateTime::createHighPrecision()'
             ;
-            return "if (\$this->isModified() && !\$this->isColumnModified(" . $this->getColumnConstant('update_column', $builder) . ")) {
+            return "if (\$this->_isModified() && !\$this->isColumnModified(" . $this->getColumnConstant('update_column', $builder) . ")) {
     \$this->" . $this->getColumnSetter('update_column') . "(${valueSource});
 }";
         }

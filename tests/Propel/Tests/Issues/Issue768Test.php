@@ -52,31 +52,31 @@ class Issue768Test extends TestCase
             ->setTime($time)
         ;
 
-        $this->asserttrue($test->isModified(), "The time has been set the first time and need to be modified!");
+        $this->asserttrue($test->_isModified(), "The time has been set the first time and need to be modified!");
 
         $test->save();
 
         $test->setTime($time);
 
-        $this->assertfalse($test->isModified(), "The time has been marked as modified, although it was provided with the same time string as before!");
+        $this->assertfalse($test->_isModified(), "The time has been marked as modified, although it was provided with the same time string as before!");
 
         $timeObject->modify('+1 days');
 
         $test->setTime($timeObject);
 
-        $this->assertfalse($test->isModified(), "The date was modified, but not the time!");
+        $this->assertfalse($test->_isModified(), "The date was modified, but not the time!");
 
         $timeObject->modify('+7 hours');
 
         $test->setTime($timeObject);
 
-        $this->asserttrue($test->isModified(), "The time has not been modified!");
+        $this->asserttrue($test->_isModified(), "The time has not been modified!");
 
         $test->save();
 
         $test->setTime(null);
 
-        $this->asserttrue($test->isModified(), "The time has not been modified and not set to null!");
+        $this->asserttrue($test->_isModified(), "The time has not been modified and not set to null!");
 
         $test->save();
 
@@ -84,7 +84,7 @@ class Issue768Test extends TestCase
 
         $test->setTime($timeObject);
 
-        $this->asserttrue($test->isModified(), "The time has not been modified!");
+        $this->asserttrue($test->_isModified(), "The time has not been modified!");
 
         $test->save();
     }
@@ -105,31 +105,31 @@ class Issue768Test extends TestCase
             ->setDate($date)
         ;
 
-        $this->asserttrue($test->isModified(), "The date has been set the first time and need to be modified!");
+        $this->asserttrue($test->_isModified(), "The date has been set the first time and need to be modified!");
 
         $test->save();
 
         $test->setDate($date);
 
-        $this->assertfalse($test->isModified(), "The date has been marked as modified, although it was provided with the same date string as before!");
+        $this->assertfalse($test->_isModified(), "The date has been marked as modified, although it was provided with the same date string as before!");
 
         $dateObject->modify('+4 hours');
 
         $test->setDate($dateObject);
 
-        $this->assertfalse($test->isModified(), "The time was modified, but not the date!");
+        $this->assertfalse($test->_isModified(), "The time was modified, but not the date!");
 
         $dateObject->modify('+7 days');
 
         $test->setDate($dateObject);
 
-        $this->asserttrue($test->isModified(), "The date has been not modified!");
+        $this->asserttrue($test->_isModified(), "The date has been not modified!");
 
         $test->save();
 
         $test->setDate(null);
 
-        $this->asserttrue($test->isModified(), "The date has been not modified and not set to null!");
+        $this->asserttrue($test->_isModified(), "The date has been not modified and not set to null!");
 
         $test->save();
 
@@ -137,7 +137,7 @@ class Issue768Test extends TestCase
 
         $test->setDate($dateObject);
 
-        $this->asserttrue($test->isModified(), "The date has not been modified!");
+        $this->asserttrue($test->_isModified(), "The date has not been modified!");
 
         $test->save();
     }
@@ -158,19 +158,19 @@ class Issue768Test extends TestCase
             ->setDateTime($dateTime)
         ;
 
-        $this->asserttrue($test->isModified(), "The datetime has been set the first time and need to be modified!");
+        $this->asserttrue($test->_isModified(), "The datetime has been set the first time and need to be modified!");
 
         $test->save();
 
         $test->setDateTime($dateTime);
 
-        $this->assertfalse($test->isModified(), "The datetime has been marked as modified, although it was provided with the same datetime string as before!");
+        $this->assertfalse($test->_isModified(), "The datetime has been marked as modified, although it was provided with the same datetime string as before!");
 
         $dateTimeObject->modify('+4 hours');
 
         $test->setDateTime($dateTimeObject);
 
-        $this->asserttrue($test->isModified(), "The time has been not modified!");
+        $this->asserttrue($test->_isModified(), "The time has been not modified!");
 
         $test->save();
 
@@ -178,13 +178,13 @@ class Issue768Test extends TestCase
 
         $test->setDateTime($dateTimeObject);
 
-        $this->asserttrue($test->isModified(), "The date has been not modified!");
+        $this->asserttrue($test->_isModified(), "The date has been not modified!");
 
         $test->save();
 
         $test->setDateTime(null);
 
-        $this->asserttrue($test->isModified(), "The datetime has been not modified and not set to null!");
+        $this->asserttrue($test->_isModified(), "The datetime has been not modified and not set to null!");
 
         $test->save();
 
@@ -192,7 +192,7 @@ class Issue768Test extends TestCase
 
         $test->setDateTime($dateTimeObject);
 
-        $this->asserttrue($test->isModified(), "The datetime has not been modified!");
+        $this->asserttrue($test->_isModified(), "The datetime has not been modified!");
 
         $test->save();
     }

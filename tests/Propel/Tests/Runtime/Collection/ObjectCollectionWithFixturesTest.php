@@ -46,7 +46,7 @@ class ObjectCollectionWithFixturesTest extends BookstoreEmptyTestBase
         $books->save();
         // check that all the books are saved
         foreach ($books as $book) {
-            $this->assertFalse($book->isModified());
+            $this->assertFalse($book->_isModified());
         }
         // check that the modifications are persisted
         BookTableMap::clearInstancePool();
