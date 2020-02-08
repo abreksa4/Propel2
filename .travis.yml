@@ -22,10 +22,6 @@ script:
 matrix:
   include:
     - php: 7.2
-      env: DB=mysql MARIADB=5.5
-      addons:
-        mariadb: 5.5
-    - php: 7.2
       env: DB=mysql MARIADB=10.0
       addons:
         mariadb: 10.0
