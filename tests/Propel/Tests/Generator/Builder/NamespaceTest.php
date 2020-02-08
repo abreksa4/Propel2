@@ -39,11 +39,11 @@ class NamespaceTest extends TestCaseFixturesDatabase
         $book->setTitle('foo');
         $book->setISBN('something');
         $book->save();
-        $this->assertFalse($book->isNew());
+        $this->assertFalse($book->_isNew());
 
         $publisher = new \Baz\NamespacedPublisher();
         $publisher->save();
-        $this->assertFalse($publisher->isNew());
+        $this->assertFalse($publisher->_isNew());
     }
 
     public function testUpdate()
@@ -55,7 +55,7 @@ class NamespaceTest extends TestCaseFixturesDatabase
         $book->save();
         $book->setTitle('bar');
         $book->save();
-        $this->assertFalse($book->isNew());
+        $this->assertFalse($book->_isNew());
     }
 
     public function testRelate()
@@ -68,8 +68,8 @@ class NamespaceTest extends TestCaseFixturesDatabase
         $book->setTitle('foo');
         $book->setISBN('something');
         $book->save();
-        $this->assertFalse($book->isNew());
-        $this->assertFalse($author->isNew());
+        $this->assertFalse($book->_isNew());
+        $this->assertFalse($author->_isNew());
 
         $author = new \Foo\Bar\NamespacedAuthor();
         $author->setFirstName('Henning');
@@ -79,8 +79,8 @@ class NamespaceTest extends TestCaseFixturesDatabase
         $book->setISBN('1234');
         $author->addNamespacedBook($book);
         $author->save();
-        $this->assertFalse($book->isNew());
-        $this->assertFalse($author->isNew());
+        $this->assertFalse($book->_isNew());
+        $this->assertFalse($author->_isNew());
 
         $publisher = new \Baz\NamespacedPublisher();
         $book = new \Foo\Bar\NamespacedBook();
@@ -88,8 +88,8 @@ class NamespaceTest extends TestCaseFixturesDatabase
         $book->setISBN('1234');
         $book->setNamespacedPublisher($publisher);
         $book->save();
-        $this->assertFalse($book->isNew());
-        $this->assertFalse($publisher->isNew());
+        $this->assertFalse($book->_isNew());
+        $this->assertFalse($publisher->_isNew());
     }
 
     public function testBasicQuery()

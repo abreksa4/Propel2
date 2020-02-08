@@ -19,7 +19,7 @@ public function getTranslation($locale = '<?php echo $defaultLocale ?>', Connect
                 }
             }
         }
-        if ($this->isNew()) {
+        if ($this->_isNew()) {
             $translation = new <?php echo $i18nTablePhpName ?>();
             $translation->set<?php echo $localeColumnName ?>($locale);
         } else {

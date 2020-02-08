@@ -477,7 +477,7 @@ class GeneratedObjectTest extends BookstoreTestBase
         $b->setTitle('foo');
         $b->setISBN('FA404');
         $b->save();
-        $this->assertFalse($b->isNew());
+        $this->assertFalse($b->_isNew());
         $this->assertNotNull($b->getId());
     }
 
@@ -861,7 +861,7 @@ EOF;
         $bookreader = new BookReader();
         $bookreader->save();
 
-        $this->assertFalse($bookreader->isNew());
+        $this->assertFalse($bookreader->_isNew());
     }
 
     /**
@@ -965,7 +965,7 @@ EOF;
         $author->setFirstName("bogus");
         $author->setLastName("Lastname");
         $author->save();
-        $author->setNew(false);
+        $author->_setNew(false);
         $author->save();
         $this->assertEquals('PreUpdatedFirstname', $author->getFirstName());
     }
@@ -985,7 +985,7 @@ EOF;
         $author->setFirstName("bogus");
         $author->setLastName("Lastname");
         $author->save();
-        $author->setNew(false);
+        $author->_setNew(false);
         $author->save();
         $this->assertEquals('PostUpdatedLastName', $author->getLastName());
     }
@@ -1010,7 +1010,7 @@ EOF;
         $this->assertEquals(0, $res);
         $this->assertEquals('pre@save.com', $author->getEmail());
         $this->assertNotEquals(115, $author->getAge());
-        $this->assertTrue($author->isNew());
+        $this->assertTrue($author->_isNew());
         $this->assertEquals($nbNestedTransactions, $con->getNestedTransactionCount());
     }
 
@@ -1043,7 +1043,7 @@ EOF;
         $author->delete($con);
         $this->assertEquals("Pre-Deleted", $author->getFirstName());
         $this->assertNotEquals("Post-Deleted", $author->getLastName());
-        $this->assertFalse($author->isDeleted());
+        $this->assertFalse($author->_isDeleted());
         $this->assertEquals(1, $con->getNestedTransactionCount());
     }
 

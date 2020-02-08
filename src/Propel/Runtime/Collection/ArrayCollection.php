@@ -48,7 +48,7 @@ class ArrayCollection extends Collection
             foreach ($this as $element) {
                 $obj->clear();
                 $obj->fromArray($element);
-                $obj->setNew($obj->isPrimaryKeyNull());
+                $obj->_setNew($obj->isPrimaryKeyNull());
                 $obj->save($con);
             }
         });
@@ -73,7 +73,7 @@ class ArrayCollection extends Collection
         $con->transaction(function () use ($con) {
             foreach ($this as $element) {
                 $obj = $this->getWorkerObject();
-                $obj->setDeleted(false);
+                $obj->_setDeleted(false);
                 $obj->fromArray($element);
                 $obj->delete($con);
             }

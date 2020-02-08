@@ -585,7 +585,7 @@ public function insertAtTop()
  */
 public function moveToRank(\$newRank, ConnectionInterface \$con = null)
 {
-    if (\$this->isNew()) {
+    if (\$this->_isNew()) {
         throw new PropelException('New objects cannot be moved. Please use insertAtRank() instead');
     }
     if (null === \$con) {

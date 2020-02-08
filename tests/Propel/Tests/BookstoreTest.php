@@ -106,8 +106,8 @@ class BookstoreTest extends BookstoreEmptyTestBase
         $phoenix->setPublisher($scholastic);
         $phoenix->save();
         $phoenix_id = $phoenix->getId();
-        $this->assertFalse($rowling->isNew(), 'saving book also saves related author');
-        $this->assertFalse($scholastic->isNew(), 'saving book also saves related publisher');
+        $this->assertFalse($rowling->_isNew(), 'saving book also saves related author');
+        $this->assertFalse($scholastic->_isNew(), 'saving book also saves related publisher');
 
         $qs = new Book();
         $qs->setISBN("0380977427");
@@ -440,8 +440,8 @@ class BookstoreTest extends BookstoreEmptyTestBase
             $phoenix->setPublisher($scholastic);
             $phoenix->save();
             $phoenix_id = $phoenix->getId();
-            $this->assertFalse($rowling->isNew(), 'saving book also saves related author');
-            $this->assertFalse($scholastic->isNew(), 'saving book also saves related publisher');
+            $this->assertFalse($rowling->_isNew(), 'saving book also saves related author');
+            $this->assertFalse($scholastic->_isNew(), 'saving book also saves related publisher');
 
             $qs = new Book();
             $qs->setISBN("0380977427");

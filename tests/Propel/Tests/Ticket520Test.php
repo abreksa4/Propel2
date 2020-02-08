@@ -132,7 +132,7 @@ class Ticket520Test extends BookstoreTestBase
         add a new book but happen to call getBooks() before we call save() again,
         the book used to be lost. */
         $a->save();
-        $this->assertFalse($b1->isNew(), 'related objects are also saved after fetching them');
+        $this->assertFalse($b1->_isNew(), 'related objects are also saved after fetching them');
     }
 
     public function testAddNewObjectAfterSaveWithPoisonedCache()
@@ -184,7 +184,7 @@ class Ticket520Test extends BookstoreTestBase
         $this->assertEquals(0, count($a->getBooks($c)));
 
         $a->save();
-        $this->assertFalse($b1->isNew());
+        $this->assertFalse($b1->_isNew());
         $this->assertEquals(0, count($a->getBooks($c)));
     }
 
@@ -255,7 +255,7 @@ class Ticket520Test extends BookstoreTestBase
         $this->assertContains($b2, $books);
 
         $a->save();
-        $this->assertFalse($b1->isNew());
-        $this->assertFalse($b2->isNew());
+        $this->assertFalse($b1->_isNew());
+        $this->assertFalse($b2->_isNew());
     }
 }

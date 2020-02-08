@@ -1587,7 +1587,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->filterByPrice(125)
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertEquals('foo', $book->getTitle(), 'findOneOrCreate() returns a populated objects based on the conditions');
         $this->assertEquals(125, $book->getPrice(), 'findOneOrCreate() returns a populated objects based on the conditions');
     }
@@ -1618,7 +1618,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->filterByPrice(125)
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book, 'findOneOrCreate() returns an instance of the model when the request has one result');
-        $this->assertFalse($book->isNew(), 'findOneOrCreate() returns an existing instance of the model when the request has one result');
+        $this->assertFalse($book->_isNew(), 'findOneOrCreate() returns an existing instance of the model when the request has one result');
         $this->assertEquals('foo', $book->getTitle(), 'findOneOrCreate() returns a populated objects based on the conditions');
         $this->assertEquals(125, $book->getPrice(), 'findOneOrCreate() returns a populated objects based on the conditions');
     }
@@ -1672,7 +1672,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->filterByStyle('poetry')
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book2, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertEquals('bar', $book->getTitle(), 'findOneOrCreate() returns a populated objects based on the conditions');
         $this->assertEquals('poetry', $book->getStyle(), 'findOneOrCreate() returns a populated objects based on the conditions');
 
@@ -1681,7 +1681,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->filterByStyle('essay')
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book2, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertEquals('foobar', $book->getTitle(), 'findOneOrCreate() returns a populated objects based on the conditions');
         $this->assertEquals('essay', $book->getStyle(), 'findOneOrCreate() returns a populated objects based on the conditions');
 
@@ -1689,7 +1689,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->where('b.Style = ?', 'novel')
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book2, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertEquals('novel', $book->getStyle(), 'findOneOrCreate() returns a populated objects based on the conditions');
     }
 
@@ -1702,7 +1702,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->filterByStyle2('poetry')
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book2, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertEquals('bar', $book->getTitle(), 'findOneOrCreate() returns a populated objects based on the conditions');
         $this->assertEquals(['poetry'], $book->getStyle2(), 'findOneOrCreate() returns a populated objects based on the conditions');
 
@@ -1711,7 +1711,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->filterByStyle2('essay')
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book2, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertEquals('foobar', $book->getTitle(), 'findOneOrCreate() returns a populated objects based on the conditions');
         $this->assertEquals(['essay'], $book->getStyle2(), 'findOneOrCreate() returns a populated objects based on the conditions');
 
@@ -1719,7 +1719,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->where('b.Style2 = ?', ['novel', 'essay'])
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book2, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertEquals(['novel', 'essay'], $book->getStyle2(), 'findOneOrCreate() returns a populated objects based on the conditions');
     }
 
@@ -1731,7 +1731,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->filterByTag('russian')
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book2, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertTrue(is_array($book->getTags()), 'findOneOrCreate() returns a populated objects based on the conditions');
         $this->assertSame(['russian'], $book->getTags(), 'findOneOrCreate() returns a populated objects based on the conditions');
 
@@ -1739,7 +1739,7 @@ class ModelCriteriaTest extends BookstoreTestBase
             ->filterByTags(['poetry'])
             ->findOneOrCreate();
         $this->assertTrue($book instanceof Book2, 'findOneOrCreate() returns an instance of the model when the request has no result');
-        $this->assertTrue($book->isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
+        $this->assertTrue($book->_isNew(), 'findOneOrCreate() returns a new instance of the model when the request has no result');
         $this->assertTrue(is_array($book->getTags()), 'findOneOrCreate() returns a populated objects based on the conditions');
         $this->assertSame(['poetry'], $book->getTags(), 'findOneOrCreate() returns a populated objects based on the conditions');
     }

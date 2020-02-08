@@ -36,29 +36,29 @@
      *
      * @return boolean true, if the object has never been persisted.
      */
-    public function isNew()
+    public function _isNew()
     {
-        return $this->new;
+        return $this->_new;
     }
 
     /**
-     * Setter for the isNew attribute.  This method will be called
+     * Setter for the _isNew attribute.  This method will be called
      * by Propel-generated children and objects.
      *
      * @param boolean $b the state of the object.
      */
-    public function setNew($b)
+    public function _setNew($b)
     {
-        $this->new = (boolean) $b;
+        $this->_new = (boolean) $b;
     }
 
     /**
      * Whether this object has been deleted.
      * @return boolean The deleted state of this object.
      */
-    public function isDeleted()
+    public function _isDeleted()
     {
-        return $this->deleted;
+        return $this->_deleted;
     }
 
     /**
@@ -66,9 +66,9 @@
      * @param  boolean $b The deleted state of this object.
      * @return void
      */
-    public function setDeleted($b)
+    public function _setDeleted($b)
     {
-        $this->deleted = (boolean) $b;
+        $this->_deleted = (boolean) $b;
     }
 
     /**

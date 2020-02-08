@@ -83,7 +83,7 @@ class ArrayCollectionTest extends BookstoreEmptyTestBase
         $col = new ArrayCollection();
         $col->setModel('Country');
         $cv = new Country();
-        $cv->setNew(false);
+        $cv->_setNew(false);
         $col []= $cv;
         $col->delete();
     }

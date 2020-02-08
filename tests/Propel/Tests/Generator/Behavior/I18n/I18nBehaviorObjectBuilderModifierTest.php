@@ -119,7 +119,7 @@ EOF;
     {
         $o = new \I18nBehaviorTest1();
         $translation = $o->getTranslation();
-        $this->assertTrue($translation->isNew());
+        $this->assertTrue($translation->_isNew());
     }
 
     public function testGetTranslationOnPersistedObjectReturnsNewTranslation()
@@ -127,7 +127,7 @@ EOF;
         $o = new \I18nBehaviorTest1();
         $o->save();
         $translation = $o->getTranslation();
-        $this->assertTrue($translation->isNew());
+        $this->assertTrue($translation->_isNew());
     }
 
     public function testGetTranslationOnPersistedObjectWithTranslationReturnsExistingTranslation()
@@ -137,7 +137,7 @@ EOF;
         $o->addI18nBehaviorTest1I18n($translation);
         $o->save();
         $translation = $o->getTranslation();
-        $this->assertFalse($translation->isNew());
+        $this->assertFalse($translation->_isNew());
     }
 
     public function testGetTranslationAcceptsALocaleParameter()

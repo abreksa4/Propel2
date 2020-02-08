@@ -869,7 +869,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             }
 
             return "
-        if (!\$this->{$clo}_isLoaded && \$this->{$clo} === {$defaultValueString} && !\$this->isNew()) {
+        if (!\$this->{$clo}_isLoaded && \$this->{$clo} === {$defaultValueString} && !\$this->_isNew()) {
             \$this->load{$column->getPhpName()}(\$con);
         }
 ";
@@ -2429,7 +2429,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
         }
 
         $script .= "
-            \$this->setNew(false);
+            \$this->_setNew(false);
 
             if (\$rehydrate) {
                 \$this->ensureConsistency();
@@ -3087,8 +3087,8 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      * @param      ConnectionInterface \$con
      * @return void
      * @throws PropelException
-     * @see $className::setDeleted()
-     * @see $className::isDeleted()
+     * @see $className::_setDeleted()
+     * @see $className::_isDeleted()
      */";
     }
 
@@ -3112,7 +3112,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
     protected function addDeleteBody(&$script)
     {
         $script .= "
-        if (\$this->isDeleted()) {
+        if (\$this->_isDeleted()) {
             throw new PropelException(\"This object has already been deleted.\");
         }
 
@@ -3135,7 +3135,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             // apply behaviors
             $this->applyBehaviorModifier('postDelete', $script, "                ");
             $script .= "
-                \$this->setDeleted(true);
+                \$this->_setDeleted(true);
             }";
         } else {
             // apply behaviors
@@ -3145,7 +3145,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             // apply behaviors
             $this->applyBehaviorModifier('postDelete', $script, "            ");
             $script .= "
-            \$this->setDeleted(true);";
+            \$this->_setDeleted(true);";
         }
 
         $script .= "
@@ -3184,11 +3184,11 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      */
     public function reload(\$deep = false, ConnectionInterface \$con = null)
     {
-        if (\$this->isDeleted()) {
+        if (\$this->_isDeleted()) {
             throw new PropelException(\"Cannot reload a deleted object.\");
         }
 
-        if (\$this->isNew()) {
+        if (\$this->_isNew()) {
             throw new PropelException(\"Cannot reload an unsaved object.\");
         }
 
@@ -4102,9 +4102,9 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      */
     public function count{$relCol}(Criteria \$criteria = null, \$distinct = false, ConnectionInterface \$con = null)
     {
-        \$partial = \$this->{$collName}Partial && !\$this->isNew();
+        \$partial = \$this->{$collName}Partial && !\$this->_isNew();
         if (null === \$this->$collName || null !== \$criteria || \$partial) {
-            if (\$this->isNew() && null === \$this->$collName) {
+            if (\$this->_isNew() && null === \$this->$collName) {
                 return 0;
             }
 
@@ -4157,9 +4157,9 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      */
     public function get$relCol(Criteria \$criteria = null, ConnectionInterface \$con = null)
     {
-        \$partial = \$this->{$collName}Partial && !\$this->isNew();
+        \$partial = \$this->{$collName}Partial && !\$this->_isNew();
         if (null === \$this->$collName || null !== \$criteria  || \$partial) {
-            if (\$this->isNew() && null === \$this->$collName) {
+            if (\$this->_isNew() && null === \$this->$collName) {
                 // return empty collection
                 \$this->init" . $this->getRefFKPhpNameAffix($refFK, $plural = true) . "();
             } else {
@@ -4185,7 +4185,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
 
                 if (\$partial && \$this->$collName) {
                     foreach (\$this->$collName as \$obj) {
-                        if (\$obj->isNew()) {
+                        if (\$obj->_isNew()) {
                             \${$collName}[] = \$obj;
                         }
                     }
@@ -4374,7 +4374,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
     {
 ";
         $script .= "
-        if (\$this->$varName === null && !\$this->isNew()) {
+        if (\$this->$varName === null && !\$this->_isNew()) {
             \$this->$varName = $queryClassName::create()->findPk(\$this->getPrimaryKey(), \$con);
         }
 
@@ -4636,7 +4636,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             foreach ($crossFKs->getCrossForeignKeys() as $crossFK) {
                 $script .= "
                     //\$combination[$combinationIdx] = {$crossFK->getForeignTable()->getPhpName()} ({$crossFK->getName()})
-                    if (!\$combination[$combinationIdx]->isDeleted() && (\$combination[$combinationIdx]->isNew() || \$combination[$combinationIdx]->isModified())) {
+                    if (!\$combination[$combinationIdx]->_isDeleted() && (\$combination[$combinationIdx]->_isNew() || \$combination[$combinationIdx]->isModified())) {
                         \$combination[$combinationIdx]->save(\$con);
                     }
                 ";
@@ -4663,7 +4663,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 $script .= "
             if (\$this->coll{$relatedName}) {
                 foreach (\$this->coll{$relatedName} as \${$lowerSingleRelatedName}) {
-                    if (!\${$lowerSingleRelatedName}->isDeleted() && (\${$lowerSingleRelatedName}->isNew() || \${$lowerSingleRelatedName}->isModified())) {
+                    if (!\${$lowerSingleRelatedName}->_isDeleted() && (\${$lowerSingleRelatedName}->_isNew() || \${$lowerSingleRelatedName}->isModified())) {
                         \${$lowerSingleRelatedName}->save(\$con);
                     }
                 }
@@ -5018,9 +5018,9 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      */
     public function get{$relatedName}(\$criteria = null, ConnectionInterface \$con = null)
     {
-        \$partial = \$this->{$collVarName}Partial && !\$this->isNew();
+        \$partial = \$this->{$collVarName}Partial && !\$this->_isNew();
         if (null === \$this->$collVarName || null !== \$criteria || \$partial) {
-            if (\$this->isNew()) {
+            if (\$this->_isNew()) {
                 // return empty collection
                 if (null === \$this->$collVarName) {
                     \$this->init{$relatedName}();
@@ -5141,9 +5141,9 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      */
     public function get{$relatedName}(Criteria \$criteria = null, ConnectionInterface \$con = null)
     {
-        \$partial = \$this->{$collName}Partial && !\$this->isNew();
+        \$partial = \$this->{$collName}Partial && !\$this->_isNew();
         if (null === \$this->$collName || null !== \$criteria || \$partial) {
-            if (\$this->isNew()) {
+            if (\$this->_isNew()) {
                 // return empty collection
                 if (null === \$this->$collName) {
                     \$this->init{$relatedName}();
@@ -5292,9 +5292,9 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      */
     public function count{$relatedName}(Criteria \$criteria = null, \$distinct = false, ConnectionInterface \$con = null)
     {
-        \$partial = \$this->{$collName}Partial && !\$this->isNew();
+        \$partial = \$this->{$collName}Partial && !\$this->_isNew();
         if (null === \$this->$collName || null !== \$criteria || \$partial) {
-            if (\$this->isNew() && null === \$this->$collName) {
+            if (\$this->_isNew() && null === \$this->$collName) {
                 return 0;
             } else {
 
@@ -5691,7 +5691,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 $aVarName = $this->getFKVarName($fk);
                 $script .= "
             if (\$this->$aVarName !== null) {
-                if (\$this->" . $aVarName . "->isModified() || \$this->" . $aVarName . "->isNew()) {
+                if (\$this->" . $aVarName . "->isModified() || \$this->" . $aVarName . "->_isNew()) {
                     \$affectedRows += \$this->" . $aVarName . "->save(\$con);
                 }
                 \$this->set".$this->getFKPhpNameAffix($fk, false)."(\$this->$aVarName);
@@ -5701,9 +5701,9 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
         } // if (count(foreign keys))
 
         $script .= "
-            if (\$this->isNew() || \$this->isModified()) {
+            if (\$this->_isNew() || \$this->isModified()) {
                 // persist changes
-                if (\$this->isNew()) {
+                if (\$this->_isNew()) {
                     \$this->doInsert(\$con);
                     \$affectedRows += 1;";
         if ($reloadOnInsert) {
@@ -5753,7 +5753,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 $varName = $this->getPKRefFKVarName($refFK);
                 $script .= "
             if (\$this->$varName !== null) {
-                if (!\$this->{$varName}->isDeleted() && (\$this->{$varName}->isNew() || \$this->{$varName}->isModified())) {
+                if (!\$this->{$varName}->_isDeleted() && (\$this->{$varName}->_isNew() || \$this->{$varName}->isModified())) {
                     \$affectedRows += \$this->{$varName}->save(\$con);
                 }
             }
@@ -5765,7 +5765,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 $script .= "
             if (\$this->$collName !== null) {
                 foreach (\$this->$collName as \$referrerFK) {
-                    if (!\$referrerFK->isDeleted() && (\$referrerFK->isNew() || \$referrerFK->isModified())) {
+                    if (!\$referrerFK->_isDeleted() && (\$referrerFK->_isNew() || \$referrerFK->isModified())) {
                         \$affectedRows += \$referrerFK->save(\$con);
                     }
                 }
@@ -5828,7 +5828,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             $script .= $this->addDoInsertBodyRaw();
         }
         $script .= "
-        \$this->setNew(false);
+        \$this->_setNew(false);
     }
 ";
 
@@ -6156,7 +6156,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
         $reloadOnInsert = $table->isReloadOnInsert();
 
         $script .= "
-        if (\$this->isDeleted()) {
+        if (\$this->_isDeleted()) {
             throw new PropelException(\"You cannot save an object that has been deleted.\");
         }
 
@@ -6174,7 +6174,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             // save with runtime hooks
             $script .= "
             \$ret = \$this->preSave(\$con);
-            \$isInsert = \$this->isNew();";
+            \$isInsert = \$this->_isNew();";
             $this->applyBehaviorModifier('preSave', $script, "            ");
             $script .= "
             if (\$isInsert) {
@@ -6209,7 +6209,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
         } else {
             // save without runtime hooks
             $script .= "
-            \$isInsert = \$this->isNew();";
+            \$isInsert = \$this->_isNew();";
             $this->applyBehaviorModifier('preSave', $script, "            ");
             if ($this->hasBehaviorModifier('preUpdate')) {
                 $script .= "
@@ -6395,9 +6395,9 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             $script .= "
 
         if (\$deepCopy) {
-            // important: temporarily setNew(false) because this affects the behavior of
+            // important: temporarily _setNew(false) because this affects the behavior of
             // the getter/setter methods for fkey referrer objects.
-            \$copyObj->setNew(false);
+            \$copyObj->_setNew(false);
 ";
             foreach ($table->getReferrers() as $fk) {
                 //HL: commenting out self-referential check below
@@ -6433,7 +6433,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
 
         $script .= "
         if (\$makeNew) {
-            \$copyObj->setNew(true);";
+            \$copyObj->_setNew(true);";
 
         // Note: we're no longer resetting non-autoincrement primary keys to default values
         // due to: http://propel.phpdb.org/trac/ticket/618
@@ -6508,8 +6508,8 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
 
         $script .= "
         \$this->resetModified();
-        \$this->setNew(true);
-        \$this->setDeleted(false);
+        \$this->_setNew(true);
+        \$this->_setDeleted(false);
     }
 ";
     }

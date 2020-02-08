@@ -104,7 +104,7 @@ class ClassTools
     public static function getPropelReservedMethods()
     {
         return [
-            'isModified', 'isColumnModified', 'isNew', 'isDeleted',
+            'isModified', 'isColumnModified', '_isNew', '_isDeleted',
         ];
     }
 }

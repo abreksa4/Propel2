@@ -120,7 +120,7 @@ EOF;
         $main->setSubtitle('foo');
         $delegate = $main->getDelegateDelegate();
         $this->assertInstanceOf('DelegateDelegate', $delegate);
-        $this->assertTrue($delegate->isNew());
+        $this->assertTrue($delegate->_isNew());
         $this->assertEquals('foo', $delegate->getSubtitle());
         $this->assertEquals('foo', $main->getSubtitle());
     }
@@ -131,7 +131,7 @@ EOF;
         $main->setSummary('foo');
         $delegate = $main->getSecondDelegateDelegate();
         $this->assertInstanceOf('SecondDelegateDelegate', $delegate);
-        $this->assertTrue($delegate->isNew());
+        $this->assertTrue($delegate->_isNew());
         $this->assertEquals('foo', $delegate->getSummary());
         $this->assertEquals('foo', $main->getSummary());
     }
@@ -161,12 +161,12 @@ EOF;
         $main->setSummary('bar');
         $delegate = $main->getDelegateDelegate();
         $this->assertInstanceOf('DelegateDelegate', $delegate);
-        $this->assertTrue($delegate->isNew());
+        $this->assertTrue($delegate->_isNew());
         $this->assertEquals('foo', $delegate->getSubtitle());
         $this->assertEquals('foo', $main->getSubtitle());
         $delegate = $main->getSecondDelegateDelegate();
         $this->assertInstanceOf('SecondDelegateDelegate', $delegate);
-        $this->assertTrue($delegate->isNew());
+        $this->assertTrue($delegate->_isNew());
         $this->assertEquals('bar', $delegate->getSummary());
         $this->assertEquals('bar', $main->getSummary());
     }
@@ -186,8 +186,8 @@ EOF;
         $main = new \DelegateMain();
         $main->setSubtitle('foo');
         $main->save();
-        $this->assertFalse($main->isNew());
-        $this->assertFalse($main->getDelegateDelegate()->isNew());
+        $this->assertFalse($main->_isNew());
+        $this->assertFalse($main->getDelegateDelegate()->_isNew());
         $this->assertNull($main->getSecondDelegateDelegate());
     }
 
@@ -196,8 +196,8 @@ EOF;
         $main = new \DelegateMain();
         $main->setSummary('foo');
         $main->save();
-        $this->assertFalse($main->isNew());
-        $this->assertFalse($main->getSecondDelegateDelegate()->isNew());
+        $this->assertFalse($main->_isNew());
+        $this->assertFalse($main->getSecondDelegateDelegate()->_isNew());
         $this->assertNull($main->getDelegateDelegate());
     }
 
@@ -263,7 +263,7 @@ EOF;
         $main->setSubtitle('bar');
         $delegate = $main->getTestTablePrefixSameDatabaseDelegate();
         $this->assertInstanceOf('TestTablePrefixSameDatabaseDelegate', $delegate);
-        $this->assertTrue($delegate->isNew());
+        $this->assertTrue($delegate->_isNew());
         $this->assertEquals('bar', $delegate->getSubtitle());
         $this->assertEquals('bar', $main->getSubtitle());
     }

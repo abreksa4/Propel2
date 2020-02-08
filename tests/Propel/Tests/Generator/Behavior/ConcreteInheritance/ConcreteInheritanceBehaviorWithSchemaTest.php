@@ -37,7 +37,7 @@ class ConcreteInheritanceBehaviorWithSchemaTest extends TestCaseFixturesDatabase
         $second_hand_book = new SecondHandBook();
         $book = $second_hand_book->getParentOrCreate();
         $this->assertTrue($book instanceof Book, 'getParentOrCreate() returns an instance of the parent class');
-        $this->assertTrue($book->isNew(), 'getParentOrCreate() returns a new instance of the parent class if the object is new');
+        $this->assertTrue($book->_isNew(), 'getParentOrCreate() returns a new instance of the parent class if the object is new');
         $this->assertEquals('Propel\Tests\BookstoreSchemas\SecondHandBook', $book->getDescendantClass(), 'getParentOrCreate() correctly sets the descendant_class of the parent object');
     }
 

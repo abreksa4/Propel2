@@ -249,10 +249,10 @@ class GeneratedObjectRelTest extends BookstoreEmptyTestBase
         $this->assertEquals(1, $list->countBookListRels(), 'addCrossFk() sets the internal cross reference collection properly');
 
         $list->save();
-        $this->assertFalse($book->isNew(), 'related object is saved if added');
+        $this->assertFalse($book->_isNew(), 'related object is saved if added');
         $rels = $list->getBookListRels();
         $rel = $rels[0];
-        $this->assertFalse($rel->isNew(), 'cross object is saved if added');
+        $this->assertFalse($rel->_isNew(), 'cross object is saved if added');
 
         $list->clearBookListRels();
         $list->clearBooks();
@@ -760,7 +760,7 @@ class GeneratedObjectRelTest extends BookstoreEmptyTestBase
         $book->setISBN('01234');
 
         // The object is "new"
-        $this->assertTrue($book->isNew());
+        $this->assertTrue($book->_isNew());
 
         $bookClubList = new BookClubList();
         $books = $bookClubList->getBooks();
@@ -789,7 +789,7 @@ class GeneratedObjectRelTest extends BookstoreEmptyTestBase
         $book->save();
 
         // The object isn't "new"
-        $this->assertFalse($book->isNew());
+        $this->assertFalse($book->_isNew());
 
         $bookClubList = new BookClubList();
         $books = $bookClubList->getBooks();

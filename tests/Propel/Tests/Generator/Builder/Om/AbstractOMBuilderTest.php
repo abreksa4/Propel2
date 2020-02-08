@@ -29,13 +29,13 @@ class AbstractOMBuilderTest extends TestCase
     public function testClear()
     {
         $b = new Book();
-        $b->setNew(false);
+        $b->_setNew(false);
         $b->clear();
-        $this->assertTrue($b->isNew(), 'clear() sets the object to new');
+        $this->assertTrue($b->_isNew(), 'clear() sets the object to new');
         $b = new Book();
-        $b->setDeleted(true);
+        $b->_setDeleted(true);
         $b->clear();
-        $this->assertFalse($b->isDeleted(), 'clear() sets the object to not deleted');
+        $this->assertFalse($b->_isDeleted(), 'clear() sets the object to not deleted');
     }
 
     public function testToStringUsesDefaultStringFormat()

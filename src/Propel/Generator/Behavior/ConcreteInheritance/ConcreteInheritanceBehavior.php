@@ -282,7 +282,7 @@ public function syncParentToChild($parentClass \$parent)
  */
 public function getParentOrCreate(\$con = null)
 {
-    if (\$this->isNew()) {
+    if (\$this->_isNew()) {
         if (\$this->isPrimaryKeyNull()) {
             \$parent = new " . $parentClass . "();
             \$parent->set" . $this->getParentTable()->getColumn($this->getParameter('descendant_column'))->getPhpName() . "('" . $this->builder->getStubObjectBuilder()->getQualifiedClassName() . "');
@@ -334,7 +334,7 @@ public function getSyncParent(\$con = null)
             }
             $refPhpName = $this->builder->getFKPhpNameAffix($fk, false);
             $script .= "
-    if (\$this->get" . $refPhpName . "() && \$this->get" . $refPhpName . "()->isNew()) {
+    if (\$this->get" . $refPhpName . "() && \$this->get" . $refPhpName . "()->_isNew()) {
         \$parent->set" . $refPhpName . "(\$this->get" . $refPhpName . "());
     }";
         }

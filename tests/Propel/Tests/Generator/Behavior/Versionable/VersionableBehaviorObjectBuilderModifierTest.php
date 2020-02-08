@@ -672,7 +672,7 @@ EOF;
         // the purpose of this tests is to highlight a bug with FK
         // and isVersioningNecessary()
         $b1 = new \VersionableBehaviorTest5();
-        $b1->setNew(false);
+        $b1->_setNew(false);
 
         // this time, the object isn't modified, so the
         // isVersioningNecessary() method is called on FK objects...

@@ -3,13 +3,13 @@
      * attribute to determine if this object has previously been saved.
      * @var boolean
      */
-    protected $new = true;
+    protected $_new = true;
 
     /**
      * attribute to determine whether this object has been deleted.
      * @var boolean
      */
-    protected $deleted = false;
+    protected $_deleted = false;
 
     /**
      * The columns that have been modified in current object.

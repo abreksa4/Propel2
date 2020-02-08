@@ -63,7 +63,7 @@ class NestedSetBehaviorObjectBuilderModifier
         $queryClassName  = $builder->getQueryClassName();
         $objectClassName = $builder->getObjectClassName();
 
-        $script = "if (\$this->isNew() && \$this->isRoot()) {
+        $script = "if (\$this->_isNew() && \$this->isRoot()) {
     // check if no other root exist in, the tree
     \$rootExists = $queryClassName::create()
         ->addUsingAlias($objectClassName::LEFT_COL, 1, Criteria::EQUAL)";
@@ -748,7 +748,7 @@ public function hasChildren()
 public function getChildren(Criteria \$criteria = null, ConnectionInterface \$con = null)
 {
     if (null === \$this->collNestedSetChildren || null !== \$criteria) {
-        if (\$this->isLeaf() || (\$this->isNew() && null === \$this->collNestedSetChildren)) {
+        if (\$this->isLeaf() || (\$this->_isNew() && null === \$this->collNestedSetChildren)) {
             // return empty collection
             \$this->initNestedSetChildren();
         } else {
@@ -783,7 +783,7 @@ public function getChildren(Criteria \$criteria = null, ConnectionInterface \$co
 public function countChildren(Criteria \$criteria = null, ConnectionInterface \$con = null)
 {
     if (null === \$this->collNestedSetChildren || null !== \$criteria) {
-        if (\$this->isLeaf() || (\$this->isNew() && null === \$this->collNestedSetChildren)) {
+        if (\$this->isLeaf() || (\$this->_isNew() && null === \$this->collNestedSetChildren)) {
             return 0;
         } else {
             return $queryClassName::create(null, \$criteria)
@@ -1004,7 +1004,7 @@ public function getAncestors(Criteria \$criteria = null, ConnectionInterface \$c
  */
 public function addChild($objectClassName \$child)
 {
-    if (\$this->isNew()) {
+    if (\$this->_isNew()) {
         throw new PropelException('A $objectClassName object must not be new to accept children.');
     }
     \$child->insertAsFirstChildOf(\$this);
@@ -1054,7 +1054,7 @@ public function insertAsFirstChildOf($objectClassName \$parent)
     // Keep the tree modification query for the save() transaction
     \$this->nestedSetQueries[] = array(
         'callable'  => array('$queryClassName', 'makeRoomForLeaf'),
-        'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->isNew() ? null : \$this)
+        'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->_isNew() ? null : \$this)
     );
 
     return \$this;
@@ -1106,7 +1106,7 @@ public function insertAsPrevSiblingOf($objectClassName \$sibling)
     // Keep the tree modification query for the save() transaction
     \$this->nestedSetQueries []= array(
         'callable'  => array('$queryClassName', 'makeRoomForLeaf'),
-        'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->isNew() ? null : \$this)
+        'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->_isNew() ? null : \$this)
     );
 
     return \$this;
@@ -1149,7 +1149,7 @@ public function insertAsNextSiblingOf($objectClassName \$sibling)
     // Keep the tree modification query for the save() transaction
     \$this->nestedSetQueries []= array(
         'callable'  => array('$queryClassName', 'makeRoomForLeaf'),
-        'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->isNew() ? null : \$this)
+        'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->_isNew() ? null : \$this)
     );
 
     return \$this;

@@ -96,7 +96,7 @@ class SortableBehaviorObjectBuilderModifierTest extends TestCase
         $t->setTitle('new');
         $t->insertAtRank(2);
         $this->assertEquals(2, $t->getRank(), 'insertAtRank() sets the position');
-        $this->assertTrue($t->isNew(), 'insertAtRank() doesn\'t save the object');
+        $this->assertTrue($t->_isNew(), 'insertAtRank() doesn\'t save the object');
         $t->save();
         $expected = [1 => 'row1', 2 => 'new', 3 => 'row2', 4 => 'row3', 5 => 'row4'];
         $this->assertEquals($expected, $this->getFixturesArray(), 'insertAtRank() shifts the entire suite');
@@ -137,7 +137,7 @@ class SortableBehaviorObjectBuilderModifierTest extends TestCase
         $t->setTitle('new');
         $t->insertAtBottom();
         $this->assertEquals(5, $t->getRank(), 'insertAtBottom() sets the position to the last');
-        $this->assertTrue($t->isNew(), 'insertAtBottom() doesn\'t save the object');
+        $this->assertTrue($t->_isNew(), 'insertAtBottom() doesn\'t save the object');
         $t->save();
         $expected = [1 => 'row1', 2 => 'row2', 3 => 'row3', 4 => 'row4', 5 => 'new'];
         $this->assertEquals($expected, $this->getFixturesArray(), 'insertAtBottom() does not shift the entire suite');
@@ -149,7 +149,7 @@ class SortableBehaviorObjectBuilderModifierTest extends TestCase
         $t->setTitle('new');
         $t->insertAtTop();
         $this->assertEquals(1, $t->getRank(), 'insertAtTop() sets the position to 1');
-        $this->assertTrue($t->isNew(), 'insertAtTop() doesn\'t save the object');
+        $this->assertTrue($t->_isNew(), 'insertAtTop() doesn\'t save the object');
         $t->save();
         $expected = [1 => 'new', 2 => 'row1', 3 => 'row2', 4 => 'row3', 5 => 'row4'];
         $this->assertEquals($expected, $this->getFixturesArray(), 'insertAtTop() shifts the entire suite');

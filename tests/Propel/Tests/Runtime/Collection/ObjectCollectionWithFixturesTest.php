@@ -62,7 +62,7 @@ class ObjectCollectionWithFixturesTest extends BookstoreEmptyTestBase
         $books->delete();
         // check that all the books are deleted
         foreach ($books as $book) {
-            $this->assertTrue($book->isDeleted());
+            $this->assertTrue($book->_isDeleted());
         }
         // check that the modifications are persisted
         BookTableMap::clearInstancePool();

@@ -9,15 +9,15 @@
 public function saveWithoutArchive(ConnectionInterface $con = null)
 {
 <?php if (!$isArchiveOnInsert): ?>
-    if (!$this->isNew()) {
+    if (!$this->_isNew()) {
         $this->archiveOnUpdate = false;
     }
 <?php elseif (!$isArchiveOnUpdate): ?>
-    if ($this->isNew()) {
+    if ($this->_isNew()) {
         $this->archiveOnInsert = false;
     }
 <?php else: ?>
-    if ($this->isNew()) {
+    if ($this->_isNew()) {
         $this->archiveOnInsert = false;
     } else {
         $this->archiveOnUpdate = false;

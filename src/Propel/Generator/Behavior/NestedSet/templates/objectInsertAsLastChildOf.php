@@ -32,7 +32,7 @@ public function insertAsLastChildOf(<?= $objectClassName ?> $parent)
     // Keep the tree modification query for the save() transaction
     $this->nestedSetQueries []= array(
         'callable'  => array('<?= $queryClassName ?>', 'makeRoomForLeaf'),
-        'arguments' => array($left<?= $useScope ? ', $scope' : '' ?>, $this->isNew() ? null : $this)
+        'arguments' => array($left<?= $useScope ? ', $scope' : '' ?>, $this->_isNew() ? null : $this)
     );
 
     return $this;

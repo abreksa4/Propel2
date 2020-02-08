@@ -38,7 +38,7 @@ class TestableComment extends AggregateComment
                 ->filterByPrimaryKey($this->getPrimaryKey())
                 ->delete($con);
             $con->commit();
-            $this->setDeleted(true);
+            $this->_setDeleted(true);
         } catch (PropelException $e) {
             $con->rollBack();
             throw $e;

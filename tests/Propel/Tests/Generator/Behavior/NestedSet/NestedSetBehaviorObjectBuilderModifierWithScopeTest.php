@@ -51,7 +51,7 @@ class NestedSetBehaviorObjectBuilderModifierWithScopeTest extends TestCase
         $t2->setScopeValue(2);
         $t2->makeRoot();
         $t2->save();
-        $this->assertTrue(!$t2->isNew());
+        $this->assertTrue(!$t2->_isNew());
     }
 
     public function testDelete()

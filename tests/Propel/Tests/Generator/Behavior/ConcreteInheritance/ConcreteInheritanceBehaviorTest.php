@@ -206,7 +206,7 @@ EOF;
         $article = new ConcreteArticle();
         $content = $article->getParentOrCreate();
         $this->assertTrue($content instanceof ConcreteContent, 'getParentOrCreate() returns an instance of the parent class');
-        $this->assertTrue($content->isNew(), 'getParentOrCreate() returns a new instance of the parent class if the object is new');
+        $this->assertTrue($content->_isNew(), 'getParentOrCreate() returns a new instance of the parent class if the object is new');
         $this->assertEquals('Propel\Tests\Bookstore\Behavior\ConcreteArticle', $content->getDescendantClass(), 'getParentOrCreate() correctly sets the descendant_class of the parent object');
     }
 
@@ -217,7 +217,7 @@ EOF;
         ConcreteContentTableMap::clearInstancePool();
         $content = $article->getParentOrCreate();
         $this->assertTrue($content instanceof ConcreteContent, 'getParentOrCreate() returns an instance of the parent class');
-        $this->assertFalse($content->isNew(), 'getParentOrCreate() returns an existing instance of the parent class if the object is persisted');
+        $this->assertFalse($content->_isNew(), 'getParentOrCreate() returns an existing instance of the parent class if the object is persisted');
         $this->assertEquals($article->getId(), $content->getId(), 'getParentOrCreate() returns the parent object related to the current object');
     }
 
@@ -273,7 +273,7 @@ EOF;
         $content = $article->getParentOrCreate();
         $this->assertEquals(5, $article->getId(), 'getParentOrCreate() keeps manually set pk');
         $this->assertTrue($content instanceof \ConcreteContentSetPk, 'getParentOrCreate() returns an instance of the parent class');
-        $this->assertTrue($content->isNew(), 'getParentOrCreate() returns a new instance of the parent class if the object is new');
+        $this->assertTrue($content->_isNew(), 'getParentOrCreate() returns a new instance of the parent class if the object is new');
         $this->assertEquals(5,$content->getId(), 'getParentOrCreate() returns a instance of the parent class with pk set');
         $this->assertEquals('ConcreteArticleSetPk', $content->getDescendantClass(), 'getParentOrCreate() correctly sets the descendant_class of the parent object');
     }

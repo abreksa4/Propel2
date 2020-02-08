@@ -85,7 +85,7 @@ class VersionableBehaviorObjectBuilderModifier
     public function preSave($builder)
     {
         $script = "if (\$this->isVersioningNecessary()) {
-    \$this->set{$this->getColumnPhpName()}(\$this->isNew() ? 1 : \$this->getLastVersionNumber(\$con) + 1);";
+    \$this->set{$this->getColumnPhpName()}(\$this->_isNew() ? 1 : \$this->getLastVersionNumber(\$con) + 1);";
         if ($this->behavior->getParameter('log_created_at') == 'true') {
             $col = $this->behavior->getTable()->getColumn($this->getParameter('version_created_at_column'));
             $script .= "
@@ -235,7 +235,7 @@ public function isVersioningNecessary(ConnectionInterface \$con = null)
         return true;
     }
 
-    if ({$queryClassName}::isVersioningEnabled() && (\$this->isNew() || \$this->isModified()) || \$this->isDeleted()) {
+    if ({$queryClassName}::isVersioningEnabled() && (\$this->_isNew() || \$this->isModified()) || \$this->_isDeleted()) {
         return true;
     }";
         $plural = false;
@@ -439,7 +439,7 @@ public function populateFromVersion(\$version, \$con = null, &\$loadedObjects = 
                 ->filterBy{$col->getPhpName()}(\$version->get{$fkVersionColumnPhpName}())
                 ->findOne(\$con);
             \$related->populateFromVersion(\$relatedVersion, \$con, \$loadedObjects);
-            \$related->setNew(false);
+            \$related->_setNew(false);
         }
         \$this->set{$fkPhpname}(\$related);
     }";
@@ -477,7 +477,7 @@ public function populateFromVersion(\$version, \$con = null, &\$loadedObjects = 
             } else {
                 \$related = new {$relatedClassName}();
                 \$related->populateFromVersion(\$relatedVersion, \$con, \$loadedObjects);
-                \$related->setNew(false);
+                \$related->_setNew(false);
             }
             \$this->add{$fkPhpName}(\$related);
             \$this->coll{$fkPhpNames}Partial = false;

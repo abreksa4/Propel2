@@ -9,7 +9,7 @@
  */
 public function removeTranslation($locale = '<?php echo $defaultLocale ?>', ConnectionInterface $con = null)
 {
-    if (!$this->isNew()) {
+    if (!$this->_isNew()) {
         <?php echo $i18nQueryName ?>::create()
             ->filterByPrimaryKey(array($this->getPrimaryKey(), $locale))
             ->delete($con);

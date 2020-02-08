@@ -8,7 +8,7 @@
  */
 public function getArchive(ConnectionInterface $con = null)
 {
-    if ($this->isNew()) {
+    if ($this->_isNew()) {
         return null;
     }
     $archive = <?php echo $archiveTableQueryName ?>::create()

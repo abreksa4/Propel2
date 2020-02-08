@@ -150,7 +150,7 @@ class NestedSetBehaviorObjectBuilderModifierTest extends TestCase
         $t1 = new \NestedSetTable9();
         $t1->save();
         $t1->delete();
-        $this->assertTrue($t1->isDeleted());
+        $this->assertTrue($t1->_isDeleted());
     }
 
     public function testMakeRoot()

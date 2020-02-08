@@ -64,7 +64,7 @@ class ObjectCollectionTest extends BookstoreTestBase
         $col = new ObjectCollection();
         $col->setModel('Propel\Tests\Bookstore\Country');
         $cv = new Country();
-        $cv->setNew(false);
+        $cv->_setNew(false);
         $col []= $cv;
         $col->delete();
     }

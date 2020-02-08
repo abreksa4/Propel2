@@ -12,7 +12,7 @@
  */
 public function archive(ConnectionInterface $con = null)
 {
-    if ($this->isNew()) {
+    if ($this->_isNew()) {
         throw new PropelException('New objects cannot be archived. You must save the current object before calling archive().');
     }
     $archive = $this->getArchive(<?php if (!$hasArchiveClass): ?>$con<?php endif; ?>);
